@@ -46,6 +46,7 @@ fn get_cat() -> Effect(Msg) {
 type Msg {
   UserClickedAddCat
   UserClickedRemoveCat
+  UserClickedReset
   ApiReturnedCats(Result(List(Cat), rsvp.Error))
 }
 
@@ -54,9 +55,14 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     UserClickedAddCat -> #(model, get_cat())
 
     UserClickedRemoveCat -> #(
-      Model(total: model.total - 1, cats: list.drop(model.cats, 1)),
+      Model(
+        total: model.total - 1,
+        cats: list.reverse(list.drop(list.reverse(model.cats), 1)),
+      ),
       effect.none(),
     )
+
+    UserClickedReset -> init(1)
 
     ApiReturnedCats(Ok(cats)) -> #(
       Model(model.total + 1, cats: list.append(model.cats, cats)),
@@ -75,6 +81,8 @@ fn view(model: Model) -> Element(Msg) {
       html.button([event.on_click(UserClickedRemoveCat)], [
         html.text("Remove cat"),
       ]),
+      html.p([], []),
+      html.button([event.on_click(UserClickedReset)], [html.text("Reset")]),
     ]),
     html.div([], {
       list.map(model.cats, fn(cat) {
