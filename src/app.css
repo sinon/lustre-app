@@ -1,0 +1,4 @@
+@import "tailwindcss"
+/* TODO: Figure out how to use tailwind plugins with Lustre
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography'; */

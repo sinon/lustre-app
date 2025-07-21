@@ -21,7 +21,7 @@ type Model {
 }
 
 type Cat {
-  Cat(id: String, url: String)
+  Cat(id: String, url: String, width: Int, height: Int)
 }
 
 fn init(_args) -> #(Model, Effect(Msg)) {
@@ -34,8 +34,10 @@ fn get_cat() -> Effect(Msg) {
   let decoder = {
     use id <- decode.field("id", decode.string)
     use url <- decode.field("url", decode.string)
+    use width <- decode.field("width", decode.int)
+    use height <- decode.field("height", decode.int)
 
-    decode.success(Cat(id:, url:))
+    decode.success(Cat(id:, url:, width:, height:))
   }
   let url = "https://api.thecatapi.com/v1/images/search"
   let handler = rsvp.expect_json(decode.list(decoder), ApiReturnedCats)
@@ -75,14 +77,30 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
 
 fn view(model: Model) -> Element(Msg) {
   html.div([], [
-    html.div([], [
-      html.button([event.on_click(UserClickedAddCat)], [html.text("Add cat")]),
+    html.div([attribute.class("p-4 rounded shadow max-w-md")], [
+      html.button(
+        [
+          attribute.class("bg-green-500 text-white p-2"),
+          event.on_click(UserClickedAddCat),
+        ],
+        [html.text("Add cat")],
+      ),
       html.p([], [html.text(int.to_string(model.total))]),
-      html.button([event.on_click(UserClickedRemoveCat)], [
-        html.text("Remove cat"),
-      ]),
+      html.button(
+        [
+          attribute.class("bg-red-500 text-white p-2"),
+          event.on_click(UserClickedRemoveCat),
+        ],
+        [html.text("Remove cat")],
+      ),
       html.p([], []),
-      html.button([event.on_click(UserClickedReset)], [html.text("Reset")]),
+      html.button(
+        [
+          attribute.class("bg-gray-500 text-white p-2"),
+          event.on_click(UserClickedReset),
+        ],
+        [html.text("Reset")],
+      ),
     ]),
     html.div([], {
       list.map(model.cats, fn(cat) {
