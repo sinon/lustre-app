@@ -56,7 +56,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
 
     UserClickedRemoveCat -> #(
       Model(
-        total: model.total - 1,
+        total: int.max(model.total - 1, 0),
         cats: list.reverse(list.drop(list.reverse(model.cats), 1)),
       ),
       effect.none(),
