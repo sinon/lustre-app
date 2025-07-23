@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.11",
+    "tailwindcss": "^4.1.11",
+    "vite": "^7.0.5",
+    "vite-gleam": "^0.4.3"
+  },
+  "scripts": {
+    "dev": "bunx --bun vite",
+    "build": "bunx --bun vite build",
+    "serve": "bunx --bun vite preview"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "@tailwindcss/oxide"
+  ],
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.11"
+  }
+}
