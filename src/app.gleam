@@ -50,10 +50,12 @@ type Msg {
   UserClickedRemoveCat
   UserClickedReset
   ApiReturnedCats(Result(List(Cat), rsvp.Error))
+  UpdateName(String)
 }
 
 fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
+    UpdateName(_s) -> #(model, effect.none())
     UserClickedAddCat -> #(model, get_cat())
 
     UserClickedRemoveCat -> #(
@@ -77,6 +79,14 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
 
 fn view(model: Model) -> Element(Msg) {
   html.div([], [
+    html.div([attribute.class("form-select rounded-full px-4 py-3")], [
+      html.input([attribute.value("TEST"), event.on_input(UpdateName)]),
+      html.input([
+        attribute.value("SOmething Else!!!!"),
+        attribute.type_("checkbox"),
+        attribute.class("rounded text-pink-500"),
+      ]),
+    ]),
     html.div([attribute.class("p-4 rounded shadow max-w-md")], [
       html.button(
         [

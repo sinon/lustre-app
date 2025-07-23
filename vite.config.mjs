@@ -10,8 +10,8 @@ export default {
         rollupOptions: {
             input: 'main.js',
             output: {
-                dir: './dist',
-                entryFileNames: 'assets/gleam_vite_example.js',
+                dir: './priv',
+                entryFileNames: 'static/app.mjs',
             }
         }
     }

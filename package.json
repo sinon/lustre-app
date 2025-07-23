@@ -9,10 +9,14 @@
   },
   "scripts": {
     "dev": "bunx --bun vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "build": "bunx --bun vite build",
+    "serve": "bunx --bun vite preview"
   },
   "trustedDependencies": [
+    "@parcel/watcher",
     "@tailwindcss/oxide"
-  ]
+  ],
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.11"
+  }
 }
